@@ -1,6 +1,4 @@
-package Java_Room_Adventure;
-
-import java.util.Scanner; // Import scanner for reading user input
+import java.util.Scanner; // Import Scanner for reading user input
 
 public class RoomAdventure { // Main class containing game logic
 
@@ -10,15 +8,15 @@ public class RoomAdventure { // Main class containing game logic
     private static String status; // Message to display after each action
 
     // constants
-    final private static String DEFAULT_STATUS = 
-        "Sorry, I do not understand.  Try [verb] [noun].  Valid verbs include 'go', 'look', and 'take'."; //Default error message
-    
-    
-    
+    final private static String DEFAULT_STATUS =
+        "Sorry, I do not understand. Try [verb] [noun]. Valid verbs include 'go', 'look', and 'take'."; // Default error message
+
+
+
     private static void handleGo(String noun) { // Handles moving between rooms
-        String[] exitDirections = currentRoom.getExitDrections(); // Get available directions
+        String[] exitDirections = currentRoom.getExitDirections(); // Get available directions
         Room[] exitDestinations = currentRoom.getExitDestinations(); // Get rooms in those directions
-        status = "I don't see that room."; // Default if direciton is not found
+        status = "I don't see that room."; // Default if direction not found
         for (int i = 0; i < exitDirections.length; i++) { // Loop through directions
             if (noun.equals(exitDirections[i])) { // If user direction matches
                 currentRoom = exitDestinations[i]; // Change current room
@@ -27,26 +25,26 @@ public class RoomAdventure { // Main class containing game logic
         }
     }
 
-    private static void handleLook(String noun) { // Handles inspection items
-        String[] items = currentRoom.getItems(); // visible items in current room
+    private static void handleLook(String noun) { // Handles inspecting items
+        String[] items = currentRoom.getItems(); // Visible items in current room
         String[] itemDescriptions = currentRoom.getItemDescriptions(); // Descriptions for each item
-        status = "I don't see that item"; // Default if Item is not found
+        status = "I don't see that item."; // Default if item not found
         for (int i = 0; i < items.length; i++) { // Loop through items
-            if ( noun.equals(items[i])) { // If user-noun matches an item
-                status = itemDescriptions[i]; // Set status to tiem description
+            if (noun.equals(items[i])) { // If user-noun matches an item
+                status = itemDescriptions[i]; // Set status to item description
             }
         }
     }
 
     private static void handleTake(String noun) { // Handles picking up items
-        String[] grabbables = currentRoom.getGrabbables(); // Itms that can be taken
-        status = "I can't grab that item."; // Default if not grabbable
+        String[] grabbables = currentRoom.getGrabbables(); // Items that can be taken
+        status = "I can't grab that."; // Default if not grabbable
         for (String item : grabbables) { // Loop through grabbable items
-            if (noun.equals(item)) { // if user-noun matches grabbable
+            if (noun.equals(item)) { // If user-noun matches grabbable
                 for (int j = 0; j < inventory.length; j++) { // Find empty inventory slot
                     if (inventory[j] == null) { // If slot is empty
                         inventory[j] = noun; // Add item to inventory
-                        status = "Added it to the inventory"; //Update status
+                        status = "Added it to the inventory"; // Update status
                         break; // Exit inventory loop
                     }
                 }
@@ -60,9 +58,9 @@ public class RoomAdventure { // Main class containing game logic
 
         String[] room1ExitDirections = {"east"}; // Room 1 exits
         Room[] room1ExitDestinations = {room2}; // Destination rooms for Room 1
-        String[] room1Items = {"Chair", "desk"}; // Items in Room 1
+        String[] room1Items = {"chair", "desk"}; // Items in Room 1
         String[] room1ItemDescriptions = { // Descriptions for Room 1 items
-            "It is a chiar",
+            "It is a chair",
             "It's a desk, there is a key on it."
         };
         String[] room1Grabbables = {"key"}; // Items you can take in Room 1
@@ -70,32 +68,32 @@ public class RoomAdventure { // Main class containing game logic
         room1.setExitDestinations(room1ExitDestinations); // Set exit destinations
         room1.setItems(room1Items); // Set visible items
         room1.setItemDescriptions(room1ItemDescriptions); // Set item descriptions
-        room1.setGrabbables(room1Grabbables); // set grabbable items
+        room1.setGrabbables(room1Grabbables); // Set grabbable items
 
-        String[] room2ExitDirections = {"west"}; // Room 1 exits
-        Room[] room2ExitDestinations = {room1}; // Destination rooms for Room 1
-        String[] room2Items = {"fireplace", "rug"}; // Items in Room 1
-        String[] room2ItemDescriptions = { // Descriptions for Room 1 items
-            "It's on fire'",
+        String[] room2ExitDirections = {"west"}; // Room 2 exits
+        Room[] room2ExitDestinations = {room1}; // Destination rooms for Room 2
+        String[] room2Items = {"fireplace", "rug"}; // Items in Room 2
+        String[] room2ItemDescriptions = { // Descriptions for Room 2 items
+            "It's on fire",
             "There is a lump of coal on the rug."
         };
-        String[] room2Grabbables = {"coal"}; // Items you can take in Room 1
+        String[] room2Grabbables = {"coal"}; // Items you can take in Room 2
         room2.setExitDirections(room2ExitDirections); // Set exits
         room2.setExitDestinations(room2ExitDestinations); // Set exit destinations
         room2.setItems(room2Items); // Set visible items
         room2.setItemDescriptions(room2ItemDescriptions); // Set item descriptions
-        room2.setGrabbables(room2Grabbables); // set grabbable items
+        room2.setGrabbables(room2Grabbables); // Set grabbable items
 
         currentRoom = room1; // Start game in Room 1
     }
-
-
+    
+    @SuppressWarnings("java:S2189")
     public static void main(String[] args) { // Entry point of the program
         setupGame(); // Initialize rooms, items, and starting room
 
-        while (true) { //Game loop, runs until program is terminated
-            System.out.print(currentRoom.toString()); // Display curretn room description
-            System.out.print("inventory: "); // Prompt for inventory display
+        while (true) { // Game loop, runs until program is terminated
+            System.out.print(currentRoom.toString()); // Display current room description
+            System.out.print("Inventory: "); // Prompt for inventory display
 
             for (int i = 0; i < inventory.length; i++) { // Loop through inventory slots
                 System.out.print(inventory[i] + " "); // Print each inventory item
@@ -103,20 +101,20 @@ public class RoomAdventure { // Main class containing game logic
 
             System.out.println("\nWhat would you like to do? "); // Prompt user for next action
 
-            Scanner s = new Scanner(System.in); // Creeate Scanner to read input
-            String input = s.nextLine(); // read entire line of input
+            Scanner s = new Scanner(System.in); // Create Scanner to read input
+            String input = s.nextLine(); // Read entire line of input
             String[] words = input.split(" "); // Split input into words
 
             if (words.length != 2) { // Check for proper two-word command
-                status = DEFAULT_STATUS; // Set status to error message 
+                status = DEFAULT_STATUS; // Set status to error message
                 continue; // Skip to next loop iteration
             }
 
-            String verb = words[0]; // First word is the actino verb
+            String verb = words[0]; // First word is the action verb
             String noun = words[1]; // Second word is the target noun
 
             switch (verb) { // Decide which action to take
-                case "go": // if verb si 'go'
+                case "go": // If verb is 'go'
                     handleGo(noun); // Move to another room
                     break;
                 case "look": // If verb is 'look'
@@ -132,15 +130,7 @@ public class RoomAdventure { // Main class containing game logic
             System.out.println(status); // Print the status message
         }
     }
-
-
 }
-
-
-
-
-
-
 
 class Room { // Represents a game room
     private String name; // Room name
@@ -154,51 +144,50 @@ class Room { // Represents a game room
         this.name = name; // Set the room's name
     }
 
-    public String[] getExitDrections() { // getter for exit directions
-        return exitDirections;
-    }
-
-    public void setExitDirections(String[] exitDirections){ // Setter for exit directions
+    public void setExitDirections(String[] exitDirections) { // Setter for exits
         this.exitDirections = exitDirections;
     }
 
-    public Room[] getExitDestinations(){ // getter for exit distinations
-        return exitDestinations;
+    public String[] getExitDirections() { // Getter for exits
+        return exitDirections;
     }
 
-    public void setExitDestinations(Room[] exitDestinations){ // setter for exit destinations
+    public void setExitDestinations(Room[] exitDestinations) { // Setter for exit destinations
         this.exitDestinations = exitDestinations;
     }
 
-    public String[] getItems(){ // getter for items
-        return items;
+    public Room[] getExitDestinations() { // Getter for exit destinations
+        return exitDestinations;
     }
 
-    public void setItems(String[] items){ // setter for items
+    public void setItems(String[] items) { // Setter for items
         this.items = items;
     }
 
-    public String[] getItemDescriptions(){ // getter for item descriptions
-        return itemDescriptions;
+    public String[] getItems() { // Getter for items
+        return items;
     }
 
-    public void setItemDescriptions(String[] itemDescriptions){ // setter for item descriptions
+    public void setItemDescriptions(String[] itemDescriptions) { // Setter for descriptions
         this.itemDescriptions = itemDescriptions;
     }
 
-    public String[] getGrabbables(){ // getter for grabbables
-        return grabbables;
+    public String[] getItemDescriptions() { // Getter for descriptions
+        return itemDescriptions;
     }
 
-    public void setGrabbables(String[] grabbables){ // setter for grabbables
+    public void setGrabbables(String[] grabbables) { // Setter for grabbable items
         this.grabbables = grabbables;
     }
 
+    public String[] getGrabbables() { // Getter for grabbable items
+        return grabbables;
+    }
 
-
-    public String toString() {// Customm print for the room
+    @Override
+    public String toString() { // Custom print for the room
         String result = "\nLocation: " + name; // Show room name
-        result += "\nYou See: "; //List items
+        result += "\nYou See: "; // List items
         for (String item : items) { // Loop items
             result += item + " "; // Append each item
         }
