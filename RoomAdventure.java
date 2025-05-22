@@ -134,6 +134,7 @@ public class RoomAdventure { // Main class containing game logic
             for (int i = 0; i < inventory.length; i++) { // Loop through inventory slots
                 System.out.print(inventory[i] + " "); // Print each inventory item
             }
+            System.out.println("Health: " + health + "/" + maxHealth); // displays current health
 
             System.out.println("\nWhat would you like to do? "); // Prompt user for next action
 
