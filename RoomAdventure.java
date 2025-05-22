@@ -6,10 +6,11 @@ public class RoomAdventure { // Main class containing game logic
     private static Room currentRoom; // The room the player is currently in
     private static String[] inventory = {null, null, null, null, null}; // Player inventory slots
     private static String status; // Message to display after each action
+    private static String[] edibleItems = {"apple", "bread", "peanut butter"}; // edible items
 
     // constants
     final private static String DEFAULT_STATUS =
-        "Sorry, I do not understand. Try [verb] [noun]. Valid verbs include 'go', 'look', and 'take'."; // Default error message
+        "Sorry, I do not understand. Try [verb] [noun]. Valid verbs include 'go', 'look', 'eat' and 'take'."; // Default error message
 
 
 
@@ -50,6 +51,41 @@ public class RoomAdventure { // Main class containing game logic
                 }
             }
         }
+    }
+
+    private static void handleEat(String noun) { // Handles using items
+        int inventoryIndex = -1; // used for if statement checking if an item is in the inventory
+        
+        for (int i = 0; i < inventory.length; i++) { // for loop checks to see if item is in inventory
+            if (noun.equals(inventory[i])) {
+                inventoryIndex = i;
+                break;
+            }
+        }
+
+        if (inventoryIndex == -1) { // if statement checking if there is an item in the inventory at all
+            status = "You don't have a " + noun + " to eat";
+            return;
+        }
+
+        boolean isEdible = false; // boolean value representing if an item is edible or not
+        for (String item : edibleItems) { // for loop integrating through edibleItems array; and if 
+            if (item.equals(noun)) {      // the noun passed in is an item in the array, it changes isEdible value to true
+                isEdible = true;
+                break;
+            }
+        }
+
+        if (!isEdible) { // if statement saying if the item is not edible, it says a statement ssaying you cannot eat the item
+            status = "I can't eat that.";
+            return;
+        }
+
+        int healAmount = 20;
+        health = Math.min(maxHealth, health + healAmount);
+        inventory[inventoryIndex] = null; //
+
+        status = "You eat the " + noun + " and gain " + healAmount + " health. Current health: " + health + ".";
     }
 
     private static void setupGame() { // Initializes game world
@@ -98,6 +134,7 @@ public class RoomAdventure { // Main class containing game logic
             for (int i = 0; i < inventory.length; i++) { // Loop through inventory slots
                 System.out.print(inventory[i] + " "); // Print each inventory item
             }
+            System.out.println("Health: " + health + "/" + maxHealth); // displays current health
 
             System.out.println("\nWhat would you like to do? "); // Prompt user for next action
 
@@ -122,6 +159,12 @@ public class RoomAdventure { // Main class containing game logic
                     break;
                 case "take": // If verb is 'take'
                     handleTake(noun); // Pick up an item
+                    break;
+                case "use": // if verb is 'use'
+                    handleGo(noun); // Use an item ONLY IN INVENTORY
+                    break;
+                case "eat":
+                    handleEat(noun);
                     break;
                 default: // If verb is unrecognized
                     status = DEFAULT_STATUS; // Set status to error message
