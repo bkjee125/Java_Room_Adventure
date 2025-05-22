@@ -58,8 +58,8 @@ public class RoomAdventure { // Main class containing game logic
         for (String item : edibleItems) {
             if (noun.equals(item)) {
                 for (int j = 0; j < inventory.length; j++) {
-                    if (inventory[j] == null) {
-                        inventory[j] = noun;
+                    if (inventory[j] == edibleItems[j]) {
+                        inventory[j] = null;
                         status = "Item was eaten and removed from inventory";
                         break;
                     }
