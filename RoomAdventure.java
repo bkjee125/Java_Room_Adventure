@@ -158,6 +158,7 @@ public class RoomAdventure { // Main class containing game logic
                     break;
                 case "take": // If verb is 'take'
                     handleTake(noun); // Pick up an item
+                    break;
                 case "use": // if verb is 'use'
                     handleGo(noun); // Use an item ONLY IN INVENTORY
                     break;
