@@ -54,39 +54,40 @@ public class RoomAdventure { // Main class containing game logic
     }
 
     private static void handleEat(String noun) { // Handles using items
-        int inventoryIndex = -1;
+        int inventoryIndex = -1; // used for if statement checking if an item is in the inventory
         
-        for (int i = 0; i < inventory.length; i++) {
+        for (int i = 0; i < inventory.length; i++) { // for loop checks to see if item is in inventory
             if (noun.equals(inventory[i])) {
                 inventoryIndex = i;
                 break;
             }
         }
 
-        if (inventoryIndex == -1) {
+        if (inventoryIndex == -1) { // if statement checking if there is an item in the inventory at all
             status = "You don't have a " + noun + " to eat";
             return;
         }
 
-        boolean isEdible = false;
-    for (String item : edibleItems) {
-        if (item.equals(noun)) {
-            isEdible = true;
-            break;
+        boolean isEdible = false; // boolean value representing if an item is edible or not
+        for (String item : edibleItems) { // for loop integrating through edibleItems array; and if 
+            if (item.equals(noun)) {      // the noun passed in is an item in the array, it changes isEdible value to true
+                isEdible = true;
+                break;
+            }
         }
+
+        if (!isEdible) { // if statement saying if the item is not edible, it says a statement ssaying you cannot eat the item
+            status = "I can't eat that.";
+            return;
+        }
+
+        int healAmount = 20;
+        health = Math.min(maxHealth, health + healAmount);
+        inventory[inventoryIndex] = null; //
+
+        status = "You eat the " + noun + " and gain " + healAmount + " health. Current health: " + health + ".";
     }
 
-    if (!isEdible) {
-        status = "I can't eat that.";
-        return;
-    }
-
-    int healAmount = 20;
-    health = Math.min(maxHealth, health + healAmount);
-    inventory[inventoryIndex] = null;
-
-    status = "You eat the " + noun + " and gain " + healAmount + " health. Current health: " + health + ".";
-}
     private static void setupGame() { // Initializes game world
         Room room1 = new Room("Room 1"); // Create Room 1
         Room room2 = new Room("Room 2"); // Create Room 2
@@ -99,13 +100,11 @@ public class RoomAdventure { // Main class containing game logic
             "It's a desk, there is a key on it."
         };
         String[] room1Grabbables = {"key"}; // Items you can take in Room 1
-        String[] room1EdibleItems = {null};
         room1.setExitDirections(room1ExitDirections); // Set exits
         room1.setExitDestinations(room1ExitDestinations); // Set exit destinations
         room1.setItems(room1Items); // Set visible items
         room1.setItemDescriptions(room1ItemDescriptions); // Set item descriptions
         room1.setGrabbables(room1Grabbables); // Set grabbable items
-        room1.setEdibleItems(room1EdibleItems);
 
         String[] room2ExitDirections = {"west"}; // Room 2 exits
         Room[] room2ExitDestinations = {room1}; // Destination rooms for Room 2
@@ -115,13 +114,11 @@ public class RoomAdventure { // Main class containing game logic
             "There is a lump of coal on the rug."
         };
         String[] room2Grabbables = {"coal"}; // Items you can take in Room 2
-        String[] room2EdibleItems = {null}; // CHANGE IF Edible Item is Added
         room2.setExitDirections(room2ExitDirections); // Set exits
         room2.setExitDestinations(room2ExitDestinations); // Set exit destinations
         room2.setItems(room2Items); // Set visible items
         room2.setItemDescriptions(room2ItemDescriptions); // Set item descriptions
         room2.setGrabbables(room2Grabbables); // Set grabbable items
-        room2.setEdibleItems(room2EdibleItems);
 
         currentRoom = room1; // Start game in Room 1
     }
@@ -183,7 +180,6 @@ class Room { // Represents a game room
     private String[] items; // Items visible in the room
     private String[] itemDescriptions; // Descriptions for those items
     private String[] grabbables; // Items you can take
-    private String[] edibleItems; // Items you can eat
 
     public Room(String name) { // Constructor
         this.name = name; // Set the room's name
@@ -227,14 +223,6 @@ class Room { // Represents a game room
 
     public String[] getGrabbables() { // Getter for grabbable items
         return grabbables;
-    }
-
-    public void setEdibleItems(String[] edibleItems) {
-        this.edibleItems = edibleItems;
-    }
-
-    public String[] getEdibleItems() {
-        return edibleItems;
     }
 
     @Override
