@@ -7,6 +7,8 @@ public class RoomAdventure { // Main class containing game logic
     private static String[] inventory = {null, null, null, null, null}; // Player inventory slots
     private static String status; // Message to display after each action
     private static String[] edibleItems = {"apple", "bread", "peanut butter"}; // edible items
+    private static int maxHealth = 100; // health starts at 100
+    private static int health = maxHealth;
 
     // constants
     final private static String DEFAULT_STATUS =
@@ -88,6 +90,15 @@ public class RoomAdventure { // Main class containing game logic
         status = "You eat the " + noun + " and gain " + healAmount + " health. Current health: " + health + ".";
     }
 
+    private static void handleDrop(String noun){ // handles dropping items
+        for (int i = 0; i < inventory.length; i++){ // loop checks to see if the item is in your inventory
+            if (noun.equals(inventory[i])){         // if the above is true
+                inventory[i] = null;                // you "drop" the item (the inventory slot is set to null)
+                status = String.format("Your %s was dropped.", noun); // Update status
+            }
+        }
+    }
+
     private static void setupGame() { // Initializes game world
         Room room1 = new Room("Room 1"); // Create Room 1
         Room room2 = new Room("Room 2"); // Create Room 2
@@ -165,6 +176,8 @@ public class RoomAdventure { // Main class containing game logic
                     break;
                 case "eat":
                     handleEat(noun);
+                case "drop":
+                    handleDrop(noun);
                     break;
                 default: // If verb is unrecognized
                     status = DEFAULT_STATUS; // Set status to error message
