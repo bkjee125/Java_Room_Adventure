@@ -9,7 +9,7 @@ public class RoomAdventure { // Main class containing game logic
 
     // constants
     final private static String DEFAULT_STATUS =
-        "Sorry, I do not understand. Try [verb] [noun]. Valid verbs include 'go', 'look', and 'take'."; // Default error message
+        "Sorry, I do not understand. Try [verb] [noun]. Valid verbs include 'go', 'look', 'eat' and 'take'."; // Default error message
 
 
 
@@ -52,6 +52,22 @@ public class RoomAdventure { // Main class containing game logic
         }
     }
 
+    private static void handleEat(String noun) { // Handles using items
+        String[] edibleItems = currentRoom.getEdibleItems();
+        status = "I can't eat that.";
+        for (String item : edibleItems) {
+            if (noun.equals(item)) {
+                for (int j = 0; j < inventory.length; j++) {
+                    if (inventory[j] == null) {
+                        inventory[j] = noun;
+                        status = "Item was eaten and removed from inventory";
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
     private static void setupGame() { // Initializes game world
         Room room1 = new Room("Room 1"); // Create Room 1
         Room room2 = new Room("Room 2"); // Create Room 2
@@ -64,11 +80,13 @@ public class RoomAdventure { // Main class containing game logic
             "It's a desk, there is a key on it."
         };
         String[] room1Grabbables = {"key"}; // Items you can take in Room 1
+        String[] room1EdibleItems = {null};
         room1.setExitDirections(room1ExitDirections); // Set exits
         room1.setExitDestinations(room1ExitDestinations); // Set exit destinations
         room1.setItems(room1Items); // Set visible items
         room1.setItemDescriptions(room1ItemDescriptions); // Set item descriptions
         room1.setGrabbables(room1Grabbables); // Set grabbable items
+        room1.setEdibleItems(room1EdibleItems);
 
         String[] room2ExitDirections = {"west"}; // Room 2 exits
         Room[] room2ExitDestinations = {room1}; // Destination rooms for Room 2
@@ -78,11 +96,13 @@ public class RoomAdventure { // Main class containing game logic
             "There is a lump of coal on the rug."
         };
         String[] room2Grabbables = {"coal"}; // Items you can take in Room 2
+        String[] room2EdibleItems = {null}; // CHANGE IF Edible Item is Added
         room2.setExitDirections(room2ExitDirections); // Set exits
         room2.setExitDestinations(room2ExitDestinations); // Set exit destinations
         room2.setItems(room2Items); // Set visible items
         room2.setItemDescriptions(room2ItemDescriptions); // Set item descriptions
         room2.setGrabbables(room2Grabbables); // Set grabbable items
+        room2.setEdibleItems(room2EdibleItems);
 
         currentRoom = room1; // Start game in Room 1
     }
@@ -122,6 +142,11 @@ public class RoomAdventure { // Main class containing game logic
                     break;
                 case "take": // If verb is 'take'
                     handleTake(noun); // Pick up an item
+                case "use": // if verb is 'use'
+                    handleGo(noun); // Use an item ONLY IN INVENTORY
+                    break;
+                case "eat":
+                    handleEat(noun);
                     break;
                 default: // If verb is unrecognized
                     status = DEFAULT_STATUS; // Set status to error message
@@ -139,6 +164,7 @@ class Room { // Represents a game room
     private String[] items; // Items visible in the room
     private String[] itemDescriptions; // Descriptions for those items
     private String[] grabbables; // Items you can take
+    private String[] edibleItems; // Items you can eat
 
     public Room(String name) { // Constructor
         this.name = name; // Set the room's name
@@ -182,6 +208,14 @@ class Room { // Represents a game room
 
     public String[] getGrabbables() { // Getter for grabbable items
         return grabbables;
+    }
+
+    public void setEdibleItems(String[] edibleItems) {
+        this.edibleItems = edibleItems;
+    }
+
+    public String[] getEdibleItems() {
+        return edibleItems;
     }
 
     @Override
