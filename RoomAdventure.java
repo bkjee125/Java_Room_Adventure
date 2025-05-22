@@ -6,6 +6,7 @@ public class RoomAdventure { // Main class containing game logic
     private static Room currentRoom; // The room the player is currently in
     private static String[] inventory = {null, null, null, null, null}; // Player inventory slots
     private static String status; // Message to display after each action
+    private static String[] edibleItems = {"apple", "bread", "peanut butter"};
 
     // constants
     final private static String DEFAULT_STATUS =
@@ -53,21 +54,39 @@ public class RoomAdventure { // Main class containing game logic
     }
 
     private static void handleEat(String noun) { // Handles using items
-        String[] edibleItems = currentRoom.getEdibleItems();
-        status = "I can't eat that.";
-        for (String item : edibleItems) {
-            if (noun.equals(item)) {
-                for (int j = 0; j < inventory.length; j++) {
-                    if (inventory[j] == edibleItems[j]) {
-                        inventory[j] = null;
-                        status = "Item was eaten and removed from inventory";
-                        break;
-                    }
-                }
+        int inventoryIndex = -1;
+        
+        for (int i = 0; i < inventory.length; i++) {
+            if (noun.equals(inventory[i])) {
+                inventoryIndex = i;
+                break;
             }
+        }
+
+        if (inventoryIndex == -1) {
+            status = "You don't have a " + noun + " to eat";
+            return;
+        }
+
+        boolean isEdible = false;
+    for (String item : edibleItems) {
+        if (item.equals(noun)) {
+            isEdible = true;
+            break;
         }
     }
 
+    if (!isEdible) {
+        status = "I can't eat that.";
+        return;
+    }
+
+    int healAmount = 20;
+    health = Math.min(maxHealth, health + healAmount);
+    inventory[inventoryIndex] = null;
+
+    status = "You eat the " + noun + " and gain " + healAmount + " health. Current health: " + health + ".";
+}
     private static void setupGame() { // Initializes game world
         Room room1 = new Room("Room 1"); // Create Room 1
         Room room2 = new Room("Room 2"); // Create Room 2
