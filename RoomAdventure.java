@@ -56,14 +56,14 @@ public class RoomAdventure { // Main class containing game logic
     private static void handleEat(String noun) { // Handles using items
         int inventoryIndex = -1; // used for if statement checking if an item is in the inventory
         
-        for (int i = 0; i < inventory.length; i++) { // for loop checks to see if item is in inventory
-            if (noun.equals(inventory[i])) {
-                inventoryIndex = i;
+        for (int index = 0; index < inventory.length; index++) { // for loop checks to see if item is in inventory by iterating through inventory
+            if (noun.equals(inventory[index])) {
+                inventoryIndex = index;
                 break;
             }
         }
 
-        if (inventoryIndex == -1) { // if statement checking if there is an item in the inventory at all
+        if (inventoryIndex == -1) { // if statement saying there is no item to eat since index did not change after iterating through inventory
             status = "You don't have a " + noun + " to eat";
             return;
         }
@@ -83,7 +83,7 @@ public class RoomAdventure { // Main class containing game logic
 
         int healAmount = 20;
         health = Math.min(maxHealth, health + healAmount);
-        inventory[inventoryIndex] = null; //
+        inventory[inventoryIndex] = null; // removes item from inventory
 
         status = "You eat the " + noun + " and gain " + healAmount + " health. Current health: " + health + ".";
     }
