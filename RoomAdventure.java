@@ -6,7 +6,7 @@ public class RoomAdventure { // Main class containing game logic
     private static Room currentRoom; // The room the player is currently in
     private static String[] inventory = {null, null, null, null, null}; // Player inventory slots
     private static String status; // Message to display after each action
-    private static String[] edibleItems = {"apple", "bread", "peanut butter"};
+    private static String[] edibleItems = {"apple", "bread", "peanut butter"}; // edible items
 
     // constants
     final private static String DEFAULT_STATUS =
