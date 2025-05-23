@@ -12,7 +12,7 @@ public class RoomAdventure { // Main class containing game logic
 
     // constants
     final private static String DEFAULT_STATUS =
-        "Sorry, I do not understand. Try [verb] [noun]. Valid verbs include 'go', 'look', 'eat', 'drop', 'use' and 'take'."; // Default error message
+        "Sorry, I do not understand. Try [verb] [noun]. Valid verbs include 'go', 'look', 'eat', 'drop', 'use' 'speak to' and 'take'."; // Default error message
 
 
 
@@ -58,14 +58,14 @@ public class RoomAdventure { // Main class containing game logic
     private static void handleEat(String noun) { // Handles using items
         int inventoryIndex = -1; // used for if statement checking if an item is in the inventory
         
-        for (int i = 0; i < inventory.length; i++) { // for loop checks to see if item is in inventory
-            if (noun.equals(inventory[i])) {
-                inventoryIndex = i;
+        for (int index = 0; index < inventory.length; index++) { // for loop checks to see if item is in inventory by iterating through inventory
+            if (noun.equals(inventory[index])) {
+                inventoryIndex = index;
                 break;
             }
         }
 
-        if (inventoryIndex == -1) { // if statement checking if there is an item in the inventory at all
+        if (inventoryIndex == -1) { // if statement saying there is no item to eat since index did not change after iterating through inventory
             status = "You don't have a " + noun + " to eat";
             return;
         }
@@ -85,8 +85,7 @@ public class RoomAdventure { // Main class containing game logic
 
         int healAmount = 20;
         health = Math.min(maxHealth, health + healAmount);
-        inventory[inventoryIndex] = null; //
-
+        inventory[inventoryIndex] = null; // removes item from inventory
         status = "You eat the " + noun + " and gain " + healAmount + " health. Current health: " + health + ".";
     }
 
@@ -102,6 +101,30 @@ public class RoomAdventure { // Main class containing game logic
                     }
                 }
             }
+        }
+    }
+
+    
+
+    private static void handleSpeakTo(String noun) {
+        String[] items = currentRoom.getItems();
+        boolean isSpeakable = false;
+
+        for (String item : items){ // iterates through items in current room.
+            if (item.equals(noun)){ // if in the room, it sets isSpeakable to true. (since it is in the room with the user.)
+                isSpeakable = true; 
+                break;
+            }
+        }
+        
+        if (!isSpeakable) {
+            status = "You speak to something not here. Surprisingly, nothing responds to you.";
+            return;
+        }
+
+        switch (noun) { // easier way to check if the noun is a specific one instead of many if-else statements for each interactable
+            case "Obi_Wan_Kenobi": // the noun you input
+                System.out.println("Hello there."); // what prints out once you speak to that item
         }
     }
 
@@ -151,7 +174,7 @@ public class RoomAdventure { // Main class containing game logic
             for (int i = 0; i < inventory.length; i++) { // Loop through inventory slots
                 System.out.print(inventory[i] + " "); // Print each inventory item
             }
-            System.out.println("Health: " + health + "/" + maxHealth); // displays current health
+            System.out.println("\nHealth: " + health + "/" + maxHealth); // displays current health
 
             System.out.println("\nWhat would you like to do? "); // Prompt user for next action
 
@@ -183,7 +206,10 @@ public class RoomAdventure { // Main class containing game logic
                 case "eat":
                     handleEat(noun);
                 case "drop":
-                    handleDrop(noun);
+                    handleDrop(noun); // drop an item ONLY IN INVENTORY
+                    break;
+                case "speak to":
+                    handleSpeakTo(noun);
                     break;
                 default: // If verb is unrecognized
                     status = DEFAULT_STATUS; // Set status to error message
