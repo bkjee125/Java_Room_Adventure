@@ -30,11 +30,15 @@ public class RoomAdventure { // Main class containing game logic
 
     private static void handleLook(String noun) { // Handles inspecting items
         String[] items = currentRoom.getItems(); // Visible items in current room
+        String[] damageables = currentRoom.getDamageables(); // Damageables in the current room
         String[] itemDescriptions = currentRoom.getItemDescriptions(); // Descriptions for each item
         status = "I don't see that item."; // Default if item not found
         for (int i = 0; i < items.length; i++) { // Loop through items
             if (noun.equals(items[i])) { // If user-noun matches an item
                 status = itemDescriptions[i]; // Set status to item description
+            if (noun.equals(damageables[i])) { // If user-noun matches a damageable
+                health = health -=10;
+            }
             }
         }
     }
@@ -150,7 +154,7 @@ public class RoomAdventure { // Main class containing game logic
         Room[] room2ExitDestinations = {room1}; // Destination rooms for Room 2
         String[] room2Items = {"fireplace", "rug"}; // Items in Room 2
         String[] room2ItemDescriptions = { // Descriptions for Room 2 items
-            "It's on fire. You look too close and get a small burn on your face.",
+            "It's on fire. You look too close and get a small burn on your hand.",
             "There is a lump of coal on the rug."
         };
         String[] room2Grabbables = {"coal"}; // Items you can take in Room 2
