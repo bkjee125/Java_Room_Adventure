@@ -12,7 +12,7 @@ public class RoomAdventure { // Main class containing game logic
 
     // constants
     final private static String DEFAULT_STATUS =
-        "Sorry, I do not understand. Try [verb] [noun]. Valid verbs include 'go', 'look', 'eat' and 'take'."; // Default error message
+        "Sorry, I do not understand. Try [verb] [noun]. Valid verbs include 'go', 'look', 'eat', 'speak to' and 'take'."; // Default error message
 
 
 
@@ -78,7 +78,7 @@ public class RoomAdventure { // Main class containing game logic
             }
         }
 
-        if (!isEdible) { // if statement saying if the item is not edible, it says a statement ssaying you cannot eat the item
+        if (isEdible = false) { // if statement saying if the item is not edible, it says a statement ssaying you cannot eat the item
             status = "I can't eat that.";
             return;
         }
@@ -86,7 +86,6 @@ public class RoomAdventure { // Main class containing game logic
         int healAmount = 20;
         health = Math.min(maxHealth, health + healAmount);
         inventory[inventoryIndex] = null; // removes item from inventory
-
         status = "You eat the " + noun + " and gain " + healAmount + " health. Current health: " + health + ".";
     }
 
@@ -104,6 +103,8 @@ public class RoomAdventure { // Main class containing game logic
             }
         }
     }
+
+    
 
     private static void setupGame() { // Initializes game world
         Room room1 = new Room("Room 1"); // Create Room 1
