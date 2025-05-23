@@ -8,7 +8,7 @@ public class RoomAdventure { // Main class containing game logic
     private static String status; // Message to display after each action
     private static String[] edibleItems = {"apple", "bread", "jar_of_peanut_butter"}; // edible items
     private static int maxHealth = 100; // maximum health is 100
-    private static int health = maxHealth; // health starts at 100
+    private static int health = 75; // health starts at 100
     private static Room win;
     private static Room room10; // chat gpt assisted wiht being able to use these variables in this class was getting error
     private static Room room9;
@@ -316,11 +316,12 @@ public class RoomAdventure { // Main class containing game logic
         }
 
         switch (noun) { // easier way to check if the noun is a specific one instead of many if-else statements for each interactable
-            case "Villager": // the noun you input
+            case "villager": // the noun you input
                 System.out.println("I have been stuck in this cold room for a while. Maybe there is some way of lighting up the fire place."); // what prints out once you speak to that item
-            
-            case "Mysterious Hungry Dude":
+                break;
+            case "mysterious hungry dude":
                 System.out.println("I have been so hungry, and all that I have found is this can of dog food in the closet; but there is no way to open it. Maybe there is a can opener somewhere but not in this room.");
+                break;
             }
     }
 
@@ -363,7 +364,7 @@ public class RoomAdventure { // Main class containing game logic
 
         String[] room2ExitDirections = {"west", "south", "east"}; // Room 2 exits
         Room[] room2ExitDestinations = {room1, room4, room5}; // Destination rooms for Room 2
-        String[] room2Items = {"fireplace", "rug", "Villager"}; // Items in Room 2
+        String[] room2Items = {"fireplace", "rug", "villager"}; // Items in Room 2
         String[] room2ItemDescriptions = { // Descriptions for Room 2 items
             "It's unlit with no coal in it",
             "There is a lump of coal on the rug.  There seems to be something underneath it too...  It's a key!",
@@ -594,7 +595,7 @@ public class RoomAdventure { // Main class containing game logic
                 case "drop":
                     handleDrop(noun); // drop an item ONLY IN INVENTORY
                     break;
-                case "speakTo":
+                case "speak to":
                     handleSpeakTo(noun);
                     break;
                 default: // If verb is unrecognized
