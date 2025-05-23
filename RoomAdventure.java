@@ -91,10 +91,16 @@ public class RoomAdventure { // Main class containing game logic
     }
 
     private static void handleDrop(String noun){ // handles dropping items
-        for (int i = 0; i < inventory.length; i++){ // loop checks to see if the item is in your inventory
-            if (noun.equals(inventory[i])){         // if the above is true
-                inventory[i] = null;                // you "drop" the item (the inventory slot is set to null)
-                status = String.format("Your %s was dropped.", noun); // Update status
+        status = "You can't drop that item. Try dropping an item in your inventory."; // default if the item is not in your inventory
+        for (String item : inventory){ // loop through inventory
+            if (noun.equals(item)){ // if item exists in inventory
+                for (int i = 0; i < inventory.length; i++){ // loop checks to see if the item is in your inventory
+                    if (item.equals(inventory[i])){         // if the above is true
+                        inventory[i] = null;                // you "drop" the item (the inventory slot is set to null)
+                        status = String.format("Your %s was dropped.", noun); // Update status
+                        break; // exit the inventory loop
+                    }
+                }
             }
         }
     }
