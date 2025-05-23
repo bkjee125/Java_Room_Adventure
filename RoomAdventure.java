@@ -38,7 +38,7 @@ public class RoomAdventure { // Main class containing game logic
                 status = itemDescriptions[i]; // Set status to item description
                 for (int j = 0; j < damageables.length; j++) { // loops through damageables
                     if (noun.equals(damageables[i])) { // If user-noun matches a damageable
-                        health = health -=10; // player takes damage
+                        health = health -=25; // player takes damage
                     }
                 }
             }
