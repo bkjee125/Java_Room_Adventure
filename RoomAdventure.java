@@ -150,10 +150,12 @@ public class RoomAdventure { // Main class containing game logic
         Room[] room2ExitDestinations = {room1}; // Destination rooms for Room 2
         String[] room2Items = {"fireplace", "rug"}; // Items in Room 2
         String[] room2ItemDescriptions = { // Descriptions for Room 2 items
-            "It's on fire",
+            "It's on fire. You look too close and get a small burn on your face.",
             "There is a lump of coal on the rug."
         };
         String[] room2Grabbables = {"coal"}; // Items you can take in Room 2
+        String[] room2Damageables = {"fireplace"}; // Items that can damage you
+        room2.setDamageables(room2Damageables); // Set damageables
         room2.setExitDirections(room2ExitDirections); // Set exits
         room2.setExitDestinations(room2ExitDestinations); // Set exit destinations
         room2.setItems(room2Items); // Set visible items
@@ -277,7 +279,7 @@ class Room { // Represents a game room
         return damageables;
     }
 
-    public void setDamageables() { // Setter for damageable items
+    public void setDamageables(String[] damageables) { // Setter for damageable items
         this.damageables = damageables;
     }
 
