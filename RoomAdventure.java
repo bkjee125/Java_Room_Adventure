@@ -106,6 +106,28 @@ public class RoomAdventure { // Main class containing game logic
 
     
 
+    private static void handleSpeakTo(String noun) {
+        String[] items = currentRoom.getItems();
+        boolean isSpeakable = false;
+
+        for (String item : items){
+            if (item.equals(noun)){
+                isSpeakable = true;
+                break;
+            }
+        }
+        
+        if (isSpeakable = false) {
+            status = "You speak to something not here. Surprisingly, nothing responds to you.";
+            return;
+        }
+
+        switch (noun) { // easier way to check if the noun is a specific one instead of many if-else statements for each interactable
+            case "Obi_Wan_Kenobi": // the noun you input
+                System.out.println("Hello there."); // what prints out once you speak to that item
+        }
+    }
+
     private static void setupGame() { // Initializes game world
         Room room1 = new Room("Room 1"); // Create Room 1
         Room room2 = new Room("Room 2"); // Create Room 2
@@ -185,6 +207,9 @@ public class RoomAdventure { // Main class containing game logic
                     handleEat(noun);
                 case "drop":
                     handleDrop(noun); // drop an item ONLY IN INVENTORY
+                    break;
+                case "speak to":
+                    handleSpeakTo(noun);
                     break;
                 default: // If verb is unrecognized
                     status = DEFAULT_STATUS; // Set status to error message
