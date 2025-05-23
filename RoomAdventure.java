@@ -425,7 +425,7 @@ public class RoomAdventure { // Main class containing game logic
         String[] room4Grabbables = {"6-pack"};
         String[] room4GrabbableDescriptions = {"They seem to be fresh and unopened"};
         String[] room4Useables = {"6-pack", "can_opener"};
-        String[] room4Damageables = {""}; // Items that can damage you
+        String[] room4Damageables = {"apple"}; // Items that can damage you
         room4.setDamageables(room4Damageables); // Set damageables
 
         room4.setExitDirections(room4ExitDirections);
