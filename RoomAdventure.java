@@ -7,12 +7,12 @@ public class RoomAdventure { // Main class containing game logic
     private static String[] inventory = {null, null, null, null, null}; // Player inventory slots
     private static String status; // Message to display after each action
     private static String[] edibleItems = {"apple", "bread", "peanut butter"}; // edible items
-    private static int maxHealth = 100; // health starts at 100
-    private static int health = maxHealth;
+    private static int maxHealth = 100; // maximum health is 100
+    private static int health = maxHealth; // health starts at 100
 
     // constants
     final private static String DEFAULT_STATUS =
-        "Sorry, I do not understand. Try [verb] [noun]. Valid verbs include 'go', 'look', 'eat', 'speak to' and 'take'."; // Default error message
+        "Sorry, I do not understand. Try [verb] [noun]. Valid verbs include 'go', 'look', 'eat', 'drop', 'use' 'speak to' and 'take'."; // Default error message
 
 
 
@@ -30,11 +30,17 @@ public class RoomAdventure { // Main class containing game logic
 
     private static void handleLook(String noun) { // Handles inspecting items
         String[] items = currentRoom.getItems(); // Visible items in current room
+        String[] damageables = currentRoom.getDamageables(); // Damageables in the current room
         String[] itemDescriptions = currentRoom.getItemDescriptions(); // Descriptions for each item
         status = "I don't see that item."; // Default if item not found
         for (int i = 0; i < items.length; i++) { // Loop through items
             if (noun.equals(items[i])) { // If user-noun matches an item
                 status = itemDescriptions[i]; // Set status to item description
+                for (int j = 0; j < damageables.length; j++) { // loops through damageables
+                    if (noun.equals(damageables[j])) { // If user-noun matches a damageable
+                        health -=25; // player takes damage
+                    }
+                }
             }
         }
     }
@@ -140,6 +146,8 @@ public class RoomAdventure { // Main class containing game logic
             "It's a desk, there is a key on it."
         };
         String[] room1Grabbables = {"key"}; // Items you can take in Room 1
+        String[] room1Damageables = {""}; // Items that can damage you
+        room1.setDamageables(room1Damageables); // Set damageables
         room1.setExitDirections(room1ExitDirections); // Set exits
         room1.setExitDestinations(room1ExitDestinations); // Set exit destinations
         room1.setItems(room1Items); // Set visible items
@@ -150,10 +158,12 @@ public class RoomAdventure { // Main class containing game logic
         Room[] room2ExitDestinations = {room1}; // Destination rooms for Room 2
         String[] room2Items = {"fireplace", "rug"}; // Items in Room 2
         String[] room2ItemDescriptions = { // Descriptions for Room 2 items
-            "It's on fire",
+            "It's on fire. You look too close and get a burn on your hand.",
             "There is a lump of coal on the rug."
         };
         String[] room2Grabbables = {"coal"}; // Items you can take in Room 2
+        String[] room2Damageables = {"fireplace"}; // Items that can damage you
+        room2.setDamageables(room2Damageables); // Set damageables
         room2.setExitDirections(room2ExitDirections); // Set exits
         room2.setExitDestinations(room2ExitDestinations); // Set exit destinations
         room2.setItems(room2Items); // Set visible items
@@ -167,7 +177,7 @@ public class RoomAdventure { // Main class containing game logic
     public static void main(String[] args) { // Entry point of the program
         setupGame(); // Initialize rooms, items, and starting room
 
-        while (true) { // Game loop, runs until program is terminated
+        while (health > 0) { // Game loop, runs until health reaches 0
             System.out.print(currentRoom.toString()); // Display current room description
             System.out.print("Inventory: "); // Prompt for inventory display
 
@@ -216,6 +226,11 @@ public class RoomAdventure { // Main class containing game logic
             }
 
             System.out.println(status); // Print the status message
+
+            if (health <= 0) { // if the player's health reaches 0, they die
+                System.out.println("You died. Game over."); // death message is printed
+                s.close(); // the scanner closess
+            }
         }
     }
 }
@@ -227,6 +242,7 @@ class Room { // Represents a game room
     private String[] items; // Items visible in the room
     private String[] itemDescriptions; // Descriptions for those items
     private String[] grabbables; // Items you can take
+    private String[] damageables; // items that can damage you
 
     public Room(String name) { // Constructor
         this.name = name; // Set the room's name
@@ -270,6 +286,14 @@ class Room { // Represents a game room
 
     public String[] getGrabbables() { // Getter for grabbable items
         return grabbables;
+    }
+
+    public String[] getDamageables() { // Getter for damageable items
+        return damageables;
+    }
+
+    public void setDamageables(String[] damageables) { // Setter for damageable items
+        this.damageables = damageables;
     }
 
     @Override
