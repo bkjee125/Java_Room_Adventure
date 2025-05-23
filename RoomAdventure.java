@@ -12,7 +12,7 @@ public class RoomAdventure { // Main class containing game logic
 
     // constants
     final private static String DEFAULT_STATUS =
-        "Sorry, I do not understand. Try [verb] [noun]. Valid verbs include 'go', 'look', 'eat', 'speak to' and 'take'."; // Default error message
+        "Sorry, I do not understand. Try [verb] [noun]. Valid verbs include 'go', 'look', 'eat', 'drop', 'use' 'speak to' and 'take'."; // Default error message
 
 
 
@@ -227,6 +227,7 @@ class Room { // Represents a game room
     private String[] items; // Items visible in the room
     private String[] itemDescriptions; // Descriptions for those items
     private String[] grabbables; // Items you can take
+    private String[] damageables; // items that can damage you
 
     public Room(String name) { // Constructor
         this.name = name; // Set the room's name
@@ -270,6 +271,14 @@ class Room { // Represents a game room
 
     public String[] getGrabbables() { // Getter for grabbable items
         return grabbables;
+    }
+
+    public String[] getDamageables() { // Getter for damageable items
+        return damageables;
+    }
+
+    public void setDamageables() { // Setter for damageable items
+        this.damageables = damageables;
     }
 
     @Override
