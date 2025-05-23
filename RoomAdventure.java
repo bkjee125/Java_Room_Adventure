@@ -145,7 +145,7 @@ public class RoomAdventure { // Main class containing game logic
             for (int i = 0; i < inventory.length; i++) { // Loop through inventory slots
                 System.out.print(inventory[i] + " "); // Print each inventory item
             }
-            System.out.println("Health: " + health + "/" + maxHealth); // displays current health
+            System.out.println("\nHealth: " + health + "/" + maxHealth); // displays current health
 
             System.out.println("\nWhat would you like to do? "); // Prompt user for next action
 
@@ -177,7 +177,7 @@ public class RoomAdventure { // Main class containing game logic
                 case "eat":
                     handleEat(noun);
                 case "drop":
-                    handleDrop(noun);
+                    handleDrop(noun); // drop an item ONLY IN INVENTORY
                     break;
                 default: // If verb is unrecognized
                     status = DEFAULT_STATUS; // Set status to error message
