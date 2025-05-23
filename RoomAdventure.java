@@ -8,7 +8,7 @@ public class RoomAdventure { // Main class containing game logic
     private static String status; // Message to display after each action
     private static String[] edibleItems = {"apple", "bread", "jar_of_peanut_butter"}; // edible items
     private static int maxHealth = 100; // maximum health is 100
-    private static int health = 75; // health starts at 100
+    private static int health = maxHealth; // health starts at 100
     private static Room win;
     private static Room room10; // chat gpt assisted wiht being able to use these variables in this class was getting error
     private static Room room9;
