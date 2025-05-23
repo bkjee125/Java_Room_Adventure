@@ -146,7 +146,7 @@ public class RoomAdventure { // Main class containing game logic
             "It's a desk, there is a key on it."
         };
         String[] room1Grabbables = {"key"}; // Items you can take in Room 1
-        String[] room1Damageables = {null}; // Items that can damage you
+        String[] room1Damageables = {""}; // Items that can damage you
         room1.setDamageables(room1Damageables); // Set damageables
         room1.setExitDirections(room1ExitDirections); // Set exits
         room1.setExitDestinations(room1ExitDestinations); // Set exit destinations
