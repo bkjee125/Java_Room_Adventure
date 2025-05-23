@@ -61,7 +61,7 @@ public class RoomAdventure { // Main class containing game logic
     final private static Scanner SCANNER = new Scanner(System.in); // chat gpt gave this so i didn't have so many new scanners
     final private static String CODE = "318225";
     final private static String DEFAULT_STATUS =
-        "Sorry, I do not understand. Try [verb] [noun]. Valid verbs include 'go', 'look', 'eat', 'drop', 'use' 'speak to' and 'take'."; // Default error message
+        "Sorry, I do not understand. Try [verb] [noun]. Valid verbs include 'go', 'look', 'eat', 'drop', 'use' 'speakTo' and 'take'."; // Default error message
 
 
 
@@ -595,7 +595,7 @@ public class RoomAdventure { // Main class containing game logic
                 case "drop":
                     handleDrop(noun); // drop an item ONLY IN INVENTORY
                     break;
-                case "speak to":
+                case "speakTo":
                     handleSpeakTo(noun);
                     break;
                 default: // If verb is unrecognized
