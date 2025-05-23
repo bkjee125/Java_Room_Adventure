@@ -344,12 +344,13 @@ public class RoomAdventure { // Main class containing game logic
         String[] room1Items = {"chair", "desk"}; // Items in Room 1
         String[] room1ItemDescriptions = { // Descriptions for Room 1 items
             "It is a chair. Nothing special about it",
-            "It's a desk, there is a book resting on it.  There is a key inside one of the drawers"
+            "It's a desk, there is a book resting on it. There is a key inside one of the drawers"
         };
         String[] room1Grabbables = {"book"}; // Items you can take in Room 1
         String[] room1GrabbableDescriptions = { // Descriptions for Room 1 grabbables
             "Maybe there is something written in it"
         };
+
         String[] room1Damageables = {""}; // Items that can damage you
         room1.setDamageables(room1Damageables); // Set damageables
         String[] room1Useables = {"6-pack", "can_opener"};
@@ -364,18 +365,20 @@ public class RoomAdventure { // Main class containing game logic
 
         String[] room2ExitDirections = {"west", "south", "east"}; // Room 2 exits
         Room[] room2ExitDestinations = {room1, room4, room5}; // Destination rooms for Room 2
-        String[] room2Items = {"fireplace", "rug", "villager"}; // Items in Room 2
+
+        String[] room2Items = {"fireplace", "rug", "shatteredPictureFrame"}; // Items in Room 2
         String[] room2ItemDescriptions = { // Descriptions for Room 2 items
             "It's unlit with no coal in it",
             "There is a lump of coal on the rug.  There seems to be something underneath it too...  It's a key!",
-            "Just a villager in the room. You don't know how or why it got in here."
+            "It's a shattered picture frame on the floor. You cut your hands on the glass while looking at the picture of a dog beneath it."
         };
         String[] room2Grabbables = {"coal", "key"}; // Items you can take in Room 2
         String[] room2GrabbableDescriptions = { // Descriptions for Room 2 grabbables
             "An unused piece of coal. This could be used to light the fireplace",
             "This key is rusted too, although much bigger and heavier.  It is labeled 'Room 6'"
         };
-        String[] room2Damageables = {""}; // Items that can damage you
+        String[] room2Damageables = {"shatteredPictureFrame"}; // Items that can damage you
+
         room2.setDamageables(room2Damageables); // Set damageables
         String[] room2Useables = {"coal", "unlit_torch", "6-pack", "can_opener"};
         room2.setExitDirections(room2ExitDirections); // Set exits
@@ -392,9 +395,11 @@ public class RoomAdventure { // Main class containing game logic
         Room[] room3ExitDestinations = {room1, room4, room9};
         String[] room3Items = {"bookshelves", "statue", "desk"};
         String[] room3ItemDescriptions = {"Something is off about these bookshelves...",
+
             "There is nothing special about it", "The statue is resting on it. There is a key inside. There is also an apple on it."};
         String[] room3Grabbables = {"key", "apple"};
         String[] room3GrabbableDescriptions = {"It is small and rusted.  It is labeld 'Room 2.'", "An apple lies on top of the desk; it looks tasty and succulent"};
+
         String[] room3Useables = {"book", "6-pack", "can_opener"};
         String[] room3Damageables = {""}; // Items that can damage you
         room3.setDamageables(room3Damageables); // Set damageables
@@ -407,12 +412,15 @@ public class RoomAdventure { // Main class containing game logic
         room3.setGrabbableDescriptions(room3GrabbableDescriptions);
         room3.setUseables(room3Useables);
 
-        String[] room4ExitDirections = {"north", "east", "south", "west"};
-        Room[] room4ExitDestinations = {room2, null, room8, room3}; // null = death
-        String[] room4Items = {"brew-rig", "staircase",};
+
+        String[] room4ExitDirections = {"north", "south", "west"};
+        Room[] room4ExitDestinations = {room2, room8, room3}; 
+        String[] room4Items = {"brew-rig", "staircase", "apple"};
         String[] room4ItemDescriptions = {
             "You see someone brewing something on the brew rig.  Must be a resident of this strange place",
-            "Looks like they lead to the basement"
+            "Looks like they lead to the basement",
+            "It tastes funny...Like poison!"
+
         };
         String[] room4Grabbables = {"6-pack"};
         String[] room4GrabbableDescriptions = {"They seem to be fresh and unopened"};
@@ -430,12 +438,15 @@ public class RoomAdventure { // Main class containing game logic
 
         String[] room5ExitDirections = {"north", "west", "south"};
         Room[] room5ExitDestinations = {room7, room2, room6};
-        String[] room5Items = {"torn_note"};
+
+        String[] room5Items = {"torn_note", "rustyNail"};
         String[] room5ItemDescriptions = {
-            "It is hanging on the wall.  You can barley make out that it says 'Find the hidden rooms to escape...'"
+            "It is hanging on the wall.  You can barley make out that it says 'Find the hidden rooms to escape...'",
+            "It's a rusty nail sticking out of the wall. Why would you even get near it, let alone touch it. Now you probably have tetanus."
         };
         String[] room5Useables = {"6-pack", "can_opener"};
-        String[] room5Damageables = {""}; // Items that can damage you
+        String[] room5Damageables = {"rustyNail"}; // Items that can damage you
+
         room5.setDamageables(room5Damageables); // Set damageables
         room5.setExitDirections(room5ExitDirections);
         room5.setExitDestinations(room5ExitDestinations);
@@ -443,19 +454,17 @@ public class RoomAdventure { // Main class containing game logic
         room5.setItemDescriptions(room5ItemDescriptions);
         room5.setUseables(room5Useables);
 
-        String[] room6ExitDirections = {"north", "east", "south", "west"};
-        Room[] room6ExitDestinations = {room5, null, null, null}; // null = death
-        String[] room6Items = {"bed", "nightstand"};
+        String[] room6ExitDirections = {"north"};
+        Room[] room6ExitDestinations = {room5};
+        String[] room6Items = {"bed", "nightstand",};
         String[] room6ItemDescriptions = {
             "Looks comfortable",
-            "You open up the drawer and see an unlit_torch...  Could be useful. There is also bread in another drawer.",
+            "You open up the drawer and see an unlit_torch...  Could be useful"
         };
-        String[] room6Grabbables = {"unlit_torch", "bread"};
-        String[] room6GrabbableDescriptions = {
-            "who keeps an unlit torch in a nightstand?", 
-            "The bread looks stale from being in the drawer; however, it looks like it can give nourishment." 
-        };
-        String[] room6Useables = {"6-pack", "can_opener"};
+        String[] room6Grabbables = {"unlit_torch"};
+        String[] room6GrabbableDescriptions = {"who keeps an unlit torch in a nightstand?"};
+        String[] room6Useables = {"6-pack", "can_opener",};
+
         String[] room6Damageables = {""}; // Items that can damage you
         room6.setDamageables(room6Damageables); // Set damageables
 
@@ -470,15 +479,14 @@ public class RoomAdventure { // Main class containing game logic
 
         String[] room7ExitDirections = {"south"};
         Room[] room7ExitDestinations = {room5}; 
-        String[] room7Items = {"shelf"};
-        String[] room7ItemDescriptions = {"You see an old_can_of_dog_food on the shelf as well as a jar of peanut butter"};
-        String[] room7Grabbables = {"old_can_of_dog_food", "jar_of_peanut_butter"};
-        String[] room7GrabbableDescriptions = {
-            "This expired 10 years ago!", 
-            "looks like it has been preserved or been bought recently because of its supposed freshness."
-        };
+
+        String[] room7Items = {"shelf", "pocketKnife"};
+        String[] room7ItemDescriptions = {"You see an old_can_of_dog_food on the shelf", "You try to grab a pocket knife from off of the shelf. It drops and breaks, cutting your hand in the process."};
+        String[] room7Grabbables = {"old_can_of_dog_food"};
+        String[] room7GrabbableDescriptions = {"This expired 10 years ago!"};
         String[] room7Useables = {"6-pack", "can_opener"};
-        String[] room7Damageables = {""}; // Items that can damage you
+        String[] room7Damageables = {"pocketKnife"}; // Items that can damage you
+
         room7.setDamageables(room7Damageables); // Set damageables
 
         room7.setExitDirections(room7ExitDirections);
@@ -489,14 +497,15 @@ public class RoomAdventure { // Main class containing game logic
         room7.setGrabbableDescriptions(room7GrabbableDescriptions);
         room7.setUseables(room7Useables);
 
-        String[] room8ExitDirections = {"north", "south",};
-        Room[] room8ExitDestinations = {room4, null}; // null = death
-        String[] room8Items = {"desk"};
-        String[] room8ItemDescriptions = {"Hmm.  Another desk.  You open the drawer and see a can_opener"};
+        String[] room8ExitDirections = {"north"};
+        Room[] room8ExitDestinations = {room4};
+        String[] room8Items = {"desk", "mints"};
+        String[] room8ItemDescriptions = {"Hmm.  Another desk.  You open the drawer and see a can_opener", "Those definetely weren't mints..."};
         String[] room8Grabbables = {"can_opener"};
         String[] room8GrabbableDescriptions = {"This could probably open the can of dog food you found"};
         String[] room8Useables = {"6-pack", "can_opener"};
-        String[] room8Damageables = {""}; // Items that can damage you
+        String[] room8Damageables = {"mints"}; // Items that can damage you
+
         room8.setDamageables(room8Damageables); // Set damageables
 
         room8.setExitDirections(room8ExitDirections);
@@ -509,7 +518,9 @@ public class RoomAdventure { // Main class containing game logic
         room8.lock();
 
         String[] room9ExitDirections = {"north", "east"};
-        Room[] room9ExitDestinations = {room10, room3}; // null = death
+
+        Room[] room9ExitDestinations = {room10, room3};
+
         String[] room9Items = {"steel_door"};
         String[] room9ItemDescriptions = {
             "It's a solid steel door.  No handle, no keyhole.  There is a number pad beside it though. Maybe you can open it with a code..."
@@ -522,16 +533,19 @@ public class RoomAdventure { // Main class containing game logic
         room9.setItemDescriptions(room9ItemDescriptions);
         room9.lock();
 
-        String[] room10ExitDirections = {"north", "east", "south", "west"};
-        Room[] room10ExitDestinations = {win, null, room9, null}; // null = death
-        String[] room10Items = {"3 doors"};
-        String[] room10Itemdescriptions = {"Choose wisely... Your life may depend on it"};
+        String[] room10ExitDirections = {"north","south"};
+        Room[] room10ExitDestinations = {win, room9};
+        String[] room10Items = {"aDoor"};
+        String[] room10ItemDescriptions = {"Should you open the door? Choose wisely... Your life may depend on it!"};
+
         String[] room10Damageables = {""}; // Items that can damage you
         room10.setDamageables(room10Damageables); // Set damageables
         room10.setExitDirections(room10ExitDirections);
         room10.setExitDestinations(room10ExitDestinations);
         room10.setItems(room10Items);
-        room10.setItemDescriptions(room10Itemdescriptions);
+      
+        room10.setItemDescriptions(room10ItemDescriptions);
+
         room10.lock();
 
         String[] winExitDirections = {};
