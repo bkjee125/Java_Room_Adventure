@@ -78,7 +78,7 @@ public class RoomAdventure { // Main class containing game logic
             }
         }
 
-        if (isEdible = false) { // if statement saying if the item is not edible, it says a statement ssaying you cannot eat the item
+        if (!isEdible) { // if statement saying if the item is not edible, it says a statement ssaying you cannot eat the item
             status = "I can't eat that.";
             return;
         }
@@ -110,14 +110,14 @@ public class RoomAdventure { // Main class containing game logic
         String[] items = currentRoom.getItems();
         boolean isSpeakable = false;
 
-        for (String item : items){
-            if (item.equals(noun)){
-                isSpeakable = true;
+        for (String item : items){ // iterates through items in current room.
+            if (item.equals(noun)){ // if in the room, it sets isSpeakable to true. (since it is in the room with the user.)
+                isSpeakable = true; 
                 break;
             }
         }
         
-        if (isSpeakable = false) {
+        if (!isSpeakable) {
             status = "You speak to something not here. Surprisingly, nothing responds to you.";
             return;
         }
