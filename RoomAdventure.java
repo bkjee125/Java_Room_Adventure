@@ -10,7 +10,7 @@ public class RoomAdventure { // Main class containing game logic
 
     // constants
     final private static String DEFAULT_STATUS =
-        "Sorry, I do not understand. Try [verb] [noun]. Valid verbs include 'go', 'look', 'eat' and 'take'."; // Default error message
+        "Sorry, I do not understand. Try [verb] [noun]. Valid verbs include 'go', 'look', 'eat', 'speak to' and 'take'."; // Default error message
 
 
 
@@ -76,7 +76,7 @@ public class RoomAdventure { // Main class containing game logic
             }
         }
 
-        if (!isEdible) { // if statement saying if the item is not edible, it says a statement ssaying you cannot eat the item
+        if (isEdible = false) { // if statement saying if the item is not edible, it says a statement ssaying you cannot eat the item
             status = "I can't eat that.";
             return;
         }
@@ -84,8 +84,29 @@ public class RoomAdventure { // Main class containing game logic
         int healAmount = 20;
         health = Math.min(maxHealth, health + healAmount);
         inventory[inventoryIndex] = null; // removes item from inventory
-
         status = "You eat the " + noun + " and gain " + healAmount + " health. Current health: " + health + ".";
+    }
+
+    private static void handleSpeakTo(String noun) {
+        String[] items = currentRoom.getItems();
+        boolean isSpeakable = false;
+
+        for (String item : items){
+            if (item.equals(noun)){
+                isSpeakable = true;
+                break;
+            }
+        }
+        
+        if (isSpeakable = false) {
+            status = "You speak to something not here. Surprisingly, nothing responds to you.";
+            return;
+        }
+
+        switch (noun) { // easier way to check if the noun is a specific one instead of many if-else statements for each interactable
+            case "Obi_Wan_Kenobi": // the noun you input
+                System.out.println("Hello there."); // what prints out once you speak to that item
+        }
     }
 
     private static void setupGame() { // Initializes game world
@@ -165,6 +186,9 @@ public class RoomAdventure { // Main class containing game logic
                     break;
                 case "eat":
                     handleEat(noun);
+                    break;
+                case "speak to":
+                    handleSpeakTo(noun);
                     break;
                 default: // If verb is unrecognized
                     status = DEFAULT_STATUS; // Set status to error message
