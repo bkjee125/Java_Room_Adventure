@@ -7,8 +7,8 @@ public class RoomAdventure { // Main class containing game logic
     private static String[] inventory = {null, null, null, null, null}; // Player inventory slots
     private static String status; // Message to display after each action
     private static String[] edibleItems = {"apple", "bread", "peanut butter"}; // edible items
-    private static int maxHealth = 100; // health starts at 100
-    private static int health = maxHealth;
+    private static int maxHealth = 100; // maximum health is 100
+    private static int health = maxHealth; // health starts at 100
 
     // constants
     final private static String DEFAULT_STATUS =
@@ -38,7 +38,7 @@ public class RoomAdventure { // Main class containing game logic
                 status = itemDescriptions[i]; // Set status to item description
                 for (int j = 0; j < damageables.length; j++) { // loops through damageables
                     if (noun.equals(damageables[i])) { // If user-noun matches a damageable
-                        health = health -=10;
+                        health = health -=10; // player takes damage
                     }
                 }
             }
@@ -175,7 +175,7 @@ public class RoomAdventure { // Main class containing game logic
     public static void main(String[] args) { // Entry point of the program
         setupGame(); // Initialize rooms, items, and starting room
 
-        while (true) { // Game loop, runs until program is terminated
+        while (health > 0) { // Game loop, runs until health reaches 0
             System.out.print(currentRoom.toString()); // Display current room description
             System.out.print("Inventory: "); // Prompt for inventory display
 
@@ -224,6 +224,11 @@ public class RoomAdventure { // Main class containing game logic
             }
 
             System.out.println(status); // Print the status message
+
+            if (health <= 0) { // if the player's health reaches 0, they die
+                System.out.println("You died. Game over."); // death message is printed
+                s.close(); // the scanner closess
+            }
         }
     }
 }
