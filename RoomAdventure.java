@@ -156,7 +156,7 @@ public class RoomAdventure { // Main class containing game logic
         Room[] room2ExitDestinations = {room1}; // Destination rooms for Room 2
         String[] room2Items = {"fireplace", "rug"}; // Items in Room 2
         String[] room2ItemDescriptions = { // Descriptions for Room 2 items
-            "It's on fire. You look too close and get a small burn on your hand.",
+            "It's on fire. You look too close and get a burn on your hand.",
             "There is a lump of coal on the rug."
         };
         String[] room2Grabbables = {"coal"}; // Items you can take in Room 2
